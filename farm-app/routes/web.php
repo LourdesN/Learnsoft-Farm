@@ -6,7 +6,12 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FertilizerApplicationController;
 use App\Http\Controllers\HarvestController;
+use App\Http\Controllers\PesticideApplicationController;
+use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StorageController;
+use App\Http\Controllers\StoredCropController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,4 +48,9 @@ Route::resource('fertilizer_applications', FertilizerApplicationController::clas
 Route::resource('harvests', HarvestController::class);
 Route::resource('suppliers', SupplierController::class);
 Route::resource('stocks', StockController::class);
+Route::resource('storages', StorageController::class);
+Route::resource('stored_crops', StoredCropController::class);
+Route::resource('sales', SaleController::class);
+Route::resource('pesticide_applications', PesticideApplicationController::class);
+Route::resource('revenues', RevenueController::class);
 

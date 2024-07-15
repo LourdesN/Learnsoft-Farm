@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <style>
     h1{
@@ -18,7 +17,7 @@
             </div>
         @endif
 
-        <table class="table table-bordered">
+        <table class="table table-bordered datatables">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -50,5 +49,3 @@
         </table>
     </div>
 @endsection
-
-
