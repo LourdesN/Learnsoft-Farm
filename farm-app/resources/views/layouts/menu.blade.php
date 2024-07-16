@@ -5,83 +5,103 @@
         <p>Home</p>
     </a>
 </li>
+
 <li class="nav-item">
-    <a href="{{ route('crops.index') }}" class="nav-link {{ Request::is('crops*') ? 'active' : '' }}">
+    <a href="{{ route('crop.crops.index') }}" class="nav-link {{ Request::is('crop.crops*') ? 'active' : '' }}">
     <i class="fas fa-solid fa-seedling"></i>
         <p>Crops</p>
     </a>
 </li>
+
 <li class="nav-item">
-    <a href="{{ route('crop_categories.index') }}" class="nav-link {{ Request::is('crop_categories*') ? 'active' : '' }}">
+    <a href="{{ route('crop.cropCategories.index') }}" class="nav-link {{ Request::is('crop.cropCategories*') ? 'active' : '' }}">
     <i class="fas fa-solid fa-leaf"></i>
         <p>Crop Categories</p>
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('customers.index') }}" class="nav-link {{ Request::is('customers*') ? 'active' : '' }}">
-    <i class="fas fa-solid fa-users"></i>
-        <p>Customers</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('expenses.index') }}" class="nav-link {{ Request::is('expenses*') ? 'active' : '' }}">
-    <i class="fas fa-solid fa-money-bill-wave"></i>
-        <p>Expenses</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('harvests.index') }}" class="nav-link {{ Request::is('harvests*') ? 'active' : '' }}">
-    <i class="fas fa-solid fa-tractor"></i>
-        <p>Harvest</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('suppliers.index') }}" class="nav-link {{ Request::is('suppliers*') ? 'active' : '' }}">
-    <i class="fas fa-user-friends"></i>
-        <p>Suppliers</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('fertilizer_applications.index') }}" class="nav-link {{ Request::is('fertilizer_applications*') ? 'active' : '' }}">
-    <i class="fas fa-warehouse"></i>
-        <p>Fertilizer Application</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('pesticide_applications.index') }}" class="nav-link {{ Request::is('pesticide_applications*') ? 'active' : '' }}">
-    <i class="fas fa-spray-can"></i>
-        <p>Pesticide Application</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('stocks.index') }}" class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
-    <i class="fas fa-pallet"></i>
-        <p>Stock</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('storages.index') }}" class="nav-link {{ Request::is('storages*') ? 'active' : '' }}">
+    <a href="{{ route('crop.storages.index') }}" class="nav-link {{ Request::is('crop.storages*') ? 'active' : '' }}">
     <i class="fas fa-boxes"></i>
-        <p>Storage</p>
+        <p>Storages</p>
     </a>
 </li>
+
 <li class="nav-item">
-    <a href="{{ route('stored_crops.index') }}" class="nav-link {{ Request::is('stored_crops*') ? 'active' : '' }}">
+    <a href="{{ route('crop.storedCrops.index') }}" class="nav-link {{ Request::is('crop.storedCrops*') ? 'active' : '' }}">
     <i class="fab fa-pagelines"></i>
         <p>Stored Crops</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('sales.index') }}" class="nav-link {{ Request::is('sales*') ? 'active' : '' }}">
+    <a href="{{ route('crop.customers.index') }}" class="nav-link {{ Request::is('crop.customers*') ? 'active' : '' }}">
+    <i class="fas fa-solid fa-users"></i>
+        <p>Customers</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('crop.sales.index') }}" class="nav-link {{ Request::is('crop.sales*') ? 'active' : '' }}">
     <i class="fas fa-file-invoice-dollar"></i>
         <p>Sales</p>
     </a>
 </li>
-
 <li class="nav-item">
-    <a href="{{ route('revenues.index') }}" class="nav-link {{ Request::is('revenues*') ? 'active' : '' }}">
+    <a href="{{ route('crop.revenues.index') }}" class="nav-link {{ Request::is('crop.revenues*') ? 'active' : '' }}">
     <i class="fas fa-file-invoice"></i>
-        <p>Revenue</p>
+        <p>Revenues</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('crop.expenseCategories.index') }}" class="nav-link {{ Request::is('crop.expenseCategories*') ? 'active' : '' }}">
+    <i class="fas fa-receipt"></i>
+        <p>Expense  Categories</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('crop.expenses.index') }}" class="nav-link {{ Request::is('crop.expenses*') ? 'active' : '' }}">
+    <i class="fas fa-solid fa-money-bill-wave"></i>
+        <p>Expenses</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('crop.suppliers.index') }}" class="nav-link {{ Request::is('crop.suppliers*') ? 'active' : '' }}">
+    <i class="fas fa-user-friends"></i>
+        <p>Suppliers</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('crop.purchases.index') }}" class="nav-link {{ Request::is('crop.purchases*') ? 'active' : '' }}">
+    <i class="far fa-credit-card"></i>
+        <p>Purchases</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('crop.stocks.index') }}" class="nav-link {{ Request::is('crop.stocks*') ? 'active' : '' }}">
+     <i class="fas fa-pallet"></i>
+        <p>Stock</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('crop.harvests.index') }}" class="nav-link {{ Request::is('crop.harvests*') ? 'active' : '' }}">
+    <i class="fas fa-solid fa-tractor"></i>
+        <p>Harvests</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('crop.fertilizerApplications.index') }}" class="nav-link {{ Request::is('crop.fertilizerApplications*') ? 'active' : '' }}">
+    <i class="fas fa-warehouse"></i>
+        <p>Fertilizer Applications</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('crop.pesticideApplications.index') }}" class="nav-link {{ Request::is('crop.pesticideApplications*') ? 'active' : '' }}">
+    <i class="fas fa-spray-can"></i>
+        <p>Pesticide Applications</p>
+    </a>
+</li>
+
+
