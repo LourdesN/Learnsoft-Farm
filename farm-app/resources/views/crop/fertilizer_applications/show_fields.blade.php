@@ -1,7 +1,7 @@
 <!-- Stock Id Field -->
 <div class="col-sm-12">
     {!! Form::label('stock_id', 'Stock Id:') !!}
-    <p>{{ $fertilizerApplication->stock_id }}</p>
+    <p>{{ $fertilizerApplication->stock->name }}</p>
 </div>
 
 <!-- Application Date Field -->
@@ -13,6 +13,6 @@
 <!-- Quantity Field -->
 <div class="col-sm-12">
     {!! Form::label('quantity', 'Quantity:') !!}
-    <p>{{ $fertilizerApplication->quantity }}</p>
+    <p>{{ $fertilizerApplication->quantity }} kg</p>
 </div>
 

@@ -6,6 +6,7 @@ use App\DataTables\Crop\HarvestDataTable;
 use App\Http\Requests\Crop\CreateHarvestRequest;
 use App\Http\Requests\Crop\UpdateHarvestRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Crop;
 use App\Repositories\Crop\HarvestRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class HarvestController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.harvests.create');
+        $crops =Crop::all();
+        return view('crop.harvests.create', compact('crops'));
     }
 
     /**
@@ -73,14 +75,15 @@ class HarvestController extends AppBaseController
     public function edit($id)
     {
         $harvest = $this->harvestRepository->find($id);
-
+        $crops =Crop::all();
+        
         if (empty($harvest)) {
             Flash::error('Harvest not found');
 
             return redirect(route('crop.harvests.index'));
         }
 
-        return view('crop.harvests.edit')->with('harvest', $harvest);
+        return view('crop.harvests.edit', compact('crops'))->with('harvest', $harvest);
     }
 
     /**

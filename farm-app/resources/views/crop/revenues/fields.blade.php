@@ -1,7 +1,7 @@
 <!-- Sale Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('sale_id', 'Sale Id:') !!}
-    {!! Form::number('sale_id', null, ['class' => 'form-control', 'required']) !!}
+{!! Form::label('Sale_id', 'Sale To:') !!}
+    {!! Form::select('harvest_id', $sales->pluck('customer_id', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Customer"]) !!}
 </div>
 
 <!-- Amount Field -->
@@ -13,7 +13,7 @@
 <!-- Revenue Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('revenue_date', 'Revenue Date:') !!}
-    {!! Form::text('revenue_date', null, ['class' => 'form-control','id'=>'revenue_date']) !!}
+    {!! Form::Date('revenue_date', null, ['class' => 'form-control','id'=>'revenue_date']) !!}
 </div>
 
 @push('page_scripts')

@@ -25,9 +25,7 @@ class Supplier extends Model
         'name' => 'required|string|max:100',
         'phone_number' => 'required',
         'address' => 'required|string|max:100',
-        'supplies_type' => 'required|string|max:100',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'supplies_type' => 'required|string|max:100'
     ];
 
     public function purchases(): \Illuminate\Database\Eloquent\Relations\HasMany

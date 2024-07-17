@@ -13,7 +13,7 @@
 <!-- Expense Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('expense_date', 'Expense Date:') !!}
-    {!! Form::text('expense_date', null, ['class' => 'form-control','id'=>'expense_date']) !!}
+    {!! Form::Date('expense_date', null, ['class' => 'form-control','id'=>'expense_date']) !!}
 </div>
 
 @push('page_scripts')

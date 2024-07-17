@@ -6,6 +6,7 @@ use App\DataTables\Crop\CropDataTable;
 use App\Http\Requests\Crop\CreateCropRequest;
 use App\Http\Requests\Crop\UpdateCropRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\CropCategory;
 use App\Repositories\Crop\CropRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,9 @@ class CropController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.crops.create');
+        // hii ndio inaenable the drop down
+        $cropCategories = CropCategory::all();
+        return view('crop.crops.create',compact('cropCategories'));
     }
 
     /**
@@ -73,14 +76,14 @@ class CropController extends AppBaseController
     public function edit($id)
     {
         $crop = $this->cropRepository->find($id);
-
+        $cropCategories = CropCategory::all();
         if (empty($crop)) {
             Flash::error('Crop not found');
 
             return redirect(route('crop.crops.index'));
         }
 
-        return view('crop.crops.edit')->with('crop', $crop);
+        return view('crop.crops.edit', compact('cropCategories'))->with('crop', $crop);
     }
 
     /**

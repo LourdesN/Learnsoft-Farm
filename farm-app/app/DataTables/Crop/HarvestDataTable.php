@@ -18,7 +18,10 @@ class HarvestDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.harvests.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.harvests.datatables_actions')
+            ->editColumn('quantity', function ($row) {
+                return $row->quantity . ' Kg';
+            });
     }
 
     /**
@@ -29,7 +32,9 @@ class HarvestDataTable extends DataTable
      */
     public function query(Harvest $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('crops', 'harvests.crop_id', '=', 'crops.id')
+            ->select('harvests.*', 'crops.name as crop_name');
     }
 
     /**
@@ -49,11 +54,11 @@ class HarvestDataTable extends DataTable
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
                     // Enable Buttons as per your need
-//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
     }
@@ -66,7 +71,7 @@ class HarvestDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'crop_id',
+            'crop_name' => ['title' => 'Crop Name'],
             'harvest_date',
             'quantity',
             'quality'
@@ -83,3 +88,4 @@ class HarvestDataTable extends DataTable
         return 'harvests_datatable_' . time();
     }
 }
+

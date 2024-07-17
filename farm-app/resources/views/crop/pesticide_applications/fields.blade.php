@@ -1,7 +1,7 @@
 <!-- Stock Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('stock_id', 'Stock Id:') !!}
-    {!! Form::number('stock_id', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('stock_id', 'Stock:') !!}
+    {!! Form::select('stock_id', $stocks->pluck('name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Stock"]) !!}
 </div>
 
 <!-- Application Date Field -->

@@ -1,13 +1,13 @@
 <!-- Crop Id Field -->
 <div class="col-sm-12">
     {!! Form::label('crop_id', 'Crop Id:') !!}
-    <p>{{ $storedCrop->crop_id }}</p>
+    <p>{{ $storedCrop->crop->name }}</p>
 </div>
 
 <!-- Quantity Field -->
 <div class="col-sm-12">
     {!! Form::label('quantity', 'Quantity:') !!}
-    <p>{{ $storedCrop->quantity }}</p>
+    <p>{{ $storedCrop->quantity }} Kg</p>
 </div>
 
 <!-- Storage Date Field -->
@@ -19,7 +19,7 @@
 <!-- Storage Id Field -->
 <div class="col-sm-12">
     {!! Form::label('storage_id', 'Storage Id:') !!}
-    <p>{{ $storedCrop->storage_id }}</p>
+    <p>{{ $storedCrop->storage-> location }}</p>
 </div>
 
 <!-- Harvest Id Field -->

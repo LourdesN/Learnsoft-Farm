@@ -6,6 +6,7 @@ use App\DataTables\Crop\FertilizerApplicationDataTable;
 use App\Http\Requests\Crop\CreateFertilizerApplicationRequest;
 use App\Http\Requests\Crop\UpdateFertilizerApplicationRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Stock;
 use App\Repositories\Crop\FertilizerApplicationRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class FertilizerApplicationController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.fertilizer_applications.create');
+        $stocks =Stock::all();
+        return view('crop.fertilizer_applications.create', compact('stocks'));
     }
 
     /**
@@ -73,14 +75,14 @@ class FertilizerApplicationController extends AppBaseController
     public function edit($id)
     {
         $fertilizerApplication = $this->fertilizerApplicationRepository->find($id);
-
+        $stocks =Stock::all();
         if (empty($fertilizerApplication)) {
             Flash::error('Fertilizer Application not found');
 
             return redirect(route('crop.fertilizerApplications.index'));
         }
 
-        return view('crop.fertilizer_applications.edit')->with('fertilizerApplication', $fertilizerApplication);
+        return view('crop.fertilizer_applications.edit', compact('stocks'))->with('fertilizerApplication', $fertilizerApplication);
     }
 
     /**

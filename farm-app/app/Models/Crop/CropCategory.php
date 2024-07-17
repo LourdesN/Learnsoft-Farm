@@ -17,9 +17,7 @@ class CropCategory extends Model
     ];
 
     public static array $rules = [
-        'name' => 'required|string|max:100',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'name' => 'required|string|max:100'
     ];
 
     public function crops(): \Illuminate\Database\Eloquent\Relations\HasMany

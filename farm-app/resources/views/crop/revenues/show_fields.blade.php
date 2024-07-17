@@ -1,13 +1,13 @@
 <!-- Sale Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('sale_id', 'Sale Id:') !!}
-    <p>{{ $revenue->sale_id }}</p>
+    {!! Form::label('sale_id', 'Sale Customer:') !!}
+    <p>{{ $revenue->sale->customer->full_name }}</p>
 </div>
 
 <!-- Amount Field -->
 <div class="col-sm-12">
     {!! Form::label('amount', 'Amount:') !!}
-    <p>{{ $revenue->amount }}</p>
+    <p>{{ $revenue->amount }} Kshs</p>
 </div>
 
 <!-- Revenue Date Field -->

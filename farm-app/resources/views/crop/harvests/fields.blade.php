@@ -1,13 +1,13 @@
-<!-- Crop Id Field -->
+<!-- Crop Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('crop_id', 'Crop Id:') !!}
-    {!! Form::number('crop_id', null, ['class' => 'form-control', 'required']) !!}
+{!! Form::label('crop_id', 'Crop:') !!}
+    {!! Form::select('crop_id', $crops->pluck('name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Crops"]) !!}
 </div>
 
 <!-- Harvest Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('harvest_date', 'Harvest Date:') !!}
-    {!! Form::text('harvest_date', null, ['class' => 'form-control','id'=>'harvest_date']) !!}
+    {!! Form::Date('harvest_date', null, ['class' => 'form-control','id'=>'harvest_date']) !!}
 </div>
 
 @push('page_scripts')

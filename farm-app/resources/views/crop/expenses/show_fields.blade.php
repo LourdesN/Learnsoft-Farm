@@ -7,7 +7,7 @@
 <!-- Amount Field -->
 <div class="col-sm-12">
     {!! Form::label('amount', 'Amount:') !!}
-    <p>{{ $expense->amount }}</p>
+    <p>{{ $expense->amount }} Kshs</p>
 </div>
 
 <!-- Expense Date Field -->

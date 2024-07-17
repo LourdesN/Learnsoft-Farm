@@ -6,6 +6,9 @@ use App\DataTables\Crop\StoredCropDataTable;
 use App\Http\Requests\Crop\CreateStoredCropRequest;
 use App\Http\Requests\Crop\UpdateStoredCropRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Crop;
+use App\Models\Crop\Harvest;
+use App\Models\Crop\Storage;
 use App\Repositories\Crop\StoredCropRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +37,11 @@ class StoredCropController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.stored_crops.create');
+        // hii ndio inaenable the drop down
+        $crops = Crop::all();
+        $storages = Storage::all();
+        $harvests = Harvest::all();
+        return view('crop.stored_crops.create',compact('crops','storages', 'harvests'));
     }
 
     /**
@@ -73,6 +80,9 @@ class StoredCropController extends AppBaseController
     public function edit($id)
     {
         $storedCrop = $this->storedCropRepository->find($id);
+        $crops = Crop::all();
+        $storages = Storage::all();
+        $harvests = Harvest::all();
 
         if (empty($storedCrop)) {
             Flash::error('Stored Crop not found');
@@ -80,7 +90,7 @@ class StoredCropController extends AppBaseController
             return redirect(route('crop.storedCrops.index'));
         }
 
-        return view('crop.stored_crops.edit')->with('storedCrop', $storedCrop);
+        return view('crop.stored_crops.edit',compact('crops','storages', 'harvests') )->with('storedCrop', $storedCrop);
     }
 
     /**

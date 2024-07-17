@@ -6,6 +6,7 @@ use App\DataTables\Crop\RevenueDataTable;
 use App\Http\Requests\Crop\CreateRevenueRequest;
 use App\Http\Requests\Crop\UpdateRevenueRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Sale;
 use App\Repositories\Crop\RevenueRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class RevenueController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.revenues.create');
+        $sales = Sale::all();
+        return view('crop.revenues.create', compact('sales'));
     }
 
     /**
@@ -73,14 +75,14 @@ class RevenueController extends AppBaseController
     public function edit($id)
     {
         $revenue = $this->revenueRepository->find($id);
-
+        $sales = Sale::all();
         if (empty($revenue)) {
             Flash::error('Revenue not found');
 
             return redirect(route('crop.revenues.index'));
         }
 
-        return view('crop.revenues.edit')->with('revenue', $revenue);
+        return view('crop.revenues.edit',compact('sales'))->with('revenue', $revenue);
     }
 
     /**

@@ -18,18 +18,23 @@ class PesticideApplicationDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.pesticide_applications.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.pesticide_applications.datatables_actions')
+            ->editColumn('quantity', function ($row) {
+                return $row->quantity . ' Kg';
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\PesticideApplication $model
+     * @param \App\Models\Crop\PesticideApplication $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(PesticideApplication $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('stocks', 'pesticide_applications.stock_id', '=', 'stocks.id')
+            ->select('pesticide_applications.*', 'stocks.name as stock_name');
     }
 
     /**
@@ -66,7 +71,7 @@ class PesticideApplicationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'stock_id',
+            'stock_name' => ['title' => 'Stock Name'],
             'application_date',
             'quantity'
         ];
@@ -82,3 +87,4 @@ class PesticideApplicationDataTable extends DataTable
         return 'pesticide_applications_datatable_' . time();
     }
 }
+

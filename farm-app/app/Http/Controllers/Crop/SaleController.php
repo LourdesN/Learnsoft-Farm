@@ -6,6 +6,7 @@ use App\DataTables\Crop\SaleDataTable;
 use App\Http\Requests\Crop\CreateSaleRequest;
 use App\Http\Requests\Crop\UpdateSaleRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Customer;
 use App\Repositories\Crop\SaleRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,9 @@ class SaleController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.sales.create');
+         // hii ndio inaenable the drop down
+        $customers = Customer::all();
+        return view('crop.sales.create', compact('customers'));
     }
 
     /**
@@ -73,14 +76,14 @@ class SaleController extends AppBaseController
     public function edit($id)
     {
         $sale = $this->saleRepository->find($id);
-
+        $customers = Customer::all();
         if (empty($sale)) {
             Flash::error('Sale not found');
 
             return redirect(route('crop.sales.index'));
         }
 
-        return view('crop.sales.edit')->with('sale', $sale);
+        return view('crop.sales.edit', compact('customers'))->with('sale', $sale);
     }
 
     /**

@@ -6,8 +6,8 @@
 
 <!-- Crop Categories Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('crop_categories_id', 'Crop Categories Id:') !!}
-    <p>{{ $crop->crop_categories_id}}</p>
+    {!! Form::label('crop_categories_id', 'Crop Categories:') !!}
+    <p>{{ $crop->cropCategories->name}}</p>
 </div>
 
 <!-- Planting Date Field -->

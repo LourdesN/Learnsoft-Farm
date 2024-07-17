@@ -1,7 +1,7 @@
 <!-- Crop Id Field -->
 <div class="col-sm-12">
     {!! Form::label('crop_id', 'Crop Id:') !!}
-    <p>{{ $harvest->crop_id }}</p>
+    <p>{{ $harvest->crop->name }}</p>
 </div>
 
 <!-- Harvest Date Field -->
@@ -13,7 +13,7 @@
 <!-- Quantity Field -->
 <div class="col-sm-12">
     {!! Form::label('quantity', 'Quantity:') !!}
-    <p>{{ $harvest->quantity }}</p>
+    <p>{{ $harvest->quantity }} Kg</p>
 </div>
 
 <!-- Quality Field -->

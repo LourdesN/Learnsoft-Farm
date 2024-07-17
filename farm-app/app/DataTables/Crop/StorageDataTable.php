@@ -18,7 +18,10 @@ class StorageDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.storages.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.storages.datatables_actions')
+        ->editColumn('capacity', function ($row) {
+            return $row->capacity . ' Kg';
+        });
     }
 
     /**

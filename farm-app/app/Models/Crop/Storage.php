@@ -20,9 +20,7 @@ class Storage extends Model
 
     public static array $rules = [
         'location' => 'required|string|max:255',
-        'capacity' => 'required|string|max:100',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'capacity' => 'required|string|max:100'
     ];
 
     public function storedCrops(): \Illuminate\Database\Eloquent\Relations\HasMany

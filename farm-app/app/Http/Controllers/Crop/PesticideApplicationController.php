@@ -6,6 +6,7 @@ use App\DataTables\Crop\PesticideApplicationDataTable;
 use App\Http\Requests\Crop\CreatePesticideApplicationRequest;
 use App\Http\Requests\Crop\UpdatePesticideApplicationRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Stock;
 use App\Repositories\Crop\PesticideApplicationRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class PesticideApplicationController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.pesticide_applications.create');
+        $stocks = Stock::all();
+        return view('crop.pesticide_applications.create',compact('stocks'));
     }
 
     /**
@@ -73,14 +75,14 @@ class PesticideApplicationController extends AppBaseController
     public function edit($id)
     {
         $pesticideApplication = $this->pesticideApplicationRepository->find($id);
-
+        $stocks = Stock::all();
         if (empty($pesticideApplication)) {
             Flash::error('Pesticide Application not found');
 
             return redirect(route('crop.pesticideApplications.index'));
         }
 
-        return view('crop.pesticide_applications.edit')->with('pesticideApplication', $pesticideApplication);
+        return view('crop.pesticide_applications.edit', compact('stocks'))->with('pesticideApplication', $pesticideApplication);
     }
 
     /**

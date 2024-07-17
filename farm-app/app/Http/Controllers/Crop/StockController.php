@@ -6,6 +6,7 @@ use App\DataTables\Crop\StockDataTable;
 use App\Http\Requests\Crop\CreateStockRequest;
 use App\Http\Requests\Crop\UpdateStockRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Supplier;
 use App\Repositories\Crop\StockRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class StockController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.stocks.create');
+        $suppliers = Supplier::all();
+        return view('crop.stocks.create', compact('suppliers'));
     }
 
     /**
@@ -73,14 +75,14 @@ class StockController extends AppBaseController
     public function edit($id)
     {
         $stock = $this->stockRepository->find($id);
-
+        $suppliers = Supplier::all();
         if (empty($stock)) {
             Flash::error('Stock not found');
 
             return redirect(route('crop.stocks.index'));
         }
 
-        return view('crop.stocks.edit')->with('stock', $stock);
+        return view('crop.stocks.edit',compact('suppliers'))->with('stock', $stock);
     }
 
     /**

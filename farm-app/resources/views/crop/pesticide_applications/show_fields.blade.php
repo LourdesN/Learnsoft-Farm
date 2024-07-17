@@ -1,7 +1,7 @@
 <!-- Stock Id Field -->
 <div class="col-sm-12">
     {!! Form::label('stock_id', 'Stock Id:') !!}
-    <p>{{ $pesticideApplication->stock_id }}</p>
+    <p>{{ $pesticideApplication->stock->name }}</p>
 </div>
 
 <!-- Application Date Field -->

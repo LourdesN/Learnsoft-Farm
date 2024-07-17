@@ -18,7 +18,10 @@ class ExpenseDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.expenses.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.expenses.datatables_actions')
+        ->editColumn('amount', function ($row) {
+            return 'Kshs ' . number_format($row->amount, 2);
+        });
     }
 
     /**

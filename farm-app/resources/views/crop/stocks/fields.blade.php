@@ -24,6 +24,6 @@
 
 <!-- Supplier Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('supplier_id', 'Supplier Id:') !!}
-    {!! Form::number('supplier_id', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('supplier_id', 'Supplier:') !!}
+    {!! Form::select('supplier_id', $suppliers->pluck('name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Suppliers"]) !!}
 </div>

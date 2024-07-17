@@ -18,18 +18,23 @@ class FertilizerApplicationDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.fertilizer_applications.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.fertilizer_applications.datatables_actions')
+            ->editColumn('quantity', function ($row) {
+                return $row->quantity . ' Kg';
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\FertilizerApplication $model
+     * @param \App\Models\Crop\FertilizerApplication $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(FertilizerApplication $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('stocks', 'fertilizer_applications.stock_id', '=', 'stocks.id')
+            ->select('fertilizer_applications.*', 'stocks.name as stock_name');
     }
 
     /**
@@ -66,7 +71,7 @@ class FertilizerApplicationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'stock_id',
+            'stock_name' => ['title' => 'Stock Name'],
             'application_date',
             'quantity'
         ];
@@ -82,3 +87,4 @@ class FertilizerApplicationDataTable extends DataTable
         return 'fertilizer_applications_datatable_' . time();
     }
 }
+

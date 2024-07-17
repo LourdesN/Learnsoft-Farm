@@ -26,9 +26,7 @@ class StoredCrop extends Model
         'quantity' => 'required|string|max:90',
         'storage_date' => 'nullable',
         'storage_id' => 'required',
-        'harvest_id' => 'required',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'harvest_id' => 'required'
     ];
 
     public function crop(): \Illuminate\Database\Eloquent\Relations\BelongsTo

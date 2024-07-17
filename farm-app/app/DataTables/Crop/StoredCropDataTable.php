@@ -18,7 +18,10 @@ class StoredCropDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.stored_crops.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.stored_crops.datatables_actions')
+        ->editColumn('quantity', function ($row) {
+            return $row->quantity . ' Kg';
+        });
     }
 
     /**
@@ -29,7 +32,10 @@ class StoredCropDataTable extends DataTable
      */
     public function query(StoredCrop $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('crops', 'stored_crops.crop_id', '=', 'crops.id')
+            ->join('storages', 'stored_crops.storage_id', '=', 'storages.id')
+            ->select('stored_crops.*', 'crops.name as crop_name', 'storages.location as storage_location');
     }
 
     /**
@@ -66,10 +72,10 @@ class StoredCropDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'crop_id',
+            'crop_name' => ['title' => 'Crop Name'],
             'quantity',
             'storage_date',
-            'storage_id',
+            'storage_location' => ['title' => 'Storage Location'],
             'harvest_id'
         ];
     }
@@ -84,3 +90,4 @@ class StoredCropDataTable extends DataTable
         return 'stored_crops_datatable_' . time();
     }
 }
+

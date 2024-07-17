@@ -7,7 +7,7 @@
 <!-- Sales Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sales_date', 'Sales Date:') !!}
-    {!! Form::text('sales_date', null, ['class' => 'form-control','id'=>'sales_date']) !!}
+    {!! Form::Date('sales_date', null, ['class' => 'form-control','id'=>'sales_date']) !!}
 </div>
 
 @push('page_scripts')
@@ -34,8 +34,8 @@
     {!! Form::number('total_price', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Customer Id Field -->
+<!-- Customer Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('customer_id', 'Customer Id:') !!}
-    {!! Form::number('customer_id', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('customer_id', 'Customer:') !!}
+    {!! Form::select('customer_id', $customers->pluck('full_name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Customers"]) !!}
 </div>

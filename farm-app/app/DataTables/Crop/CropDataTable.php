@@ -18,7 +18,10 @@ class CropDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.crops.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.crops.datatables_actions')
+                         ->addColumn('crop_category_name', function($row) {
+                             return $row->crop_category_name;
+                         });
     }
 
     /**
@@ -29,7 +32,9 @@ class CropDataTable extends DataTable
      */
     public function query(Crop $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+                     ->join('crop_categories', 'crops.crop_categories_id', '=', 'crop_categories.id')
+                     ->select('crops.*', 'crop_categories.name as crop_category_name');
     }
 
     /**
@@ -67,7 +72,7 @@ class CropDataTable extends DataTable
     {
         return [
             'name',
-            'crop_categories_id',
+            'crop_category_name' => ['name' => 'Crop Category'],
             'planting_date',
             'harvesting_date'
         ];
@@ -83,3 +88,4 @@ class CropDataTable extends DataTable
         return 'crops_datatable_' . time();
     }
 }
+

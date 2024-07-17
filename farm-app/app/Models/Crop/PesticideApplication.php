@@ -22,9 +22,7 @@ class PesticideApplication extends Model
     public static array $rules = [
         'stock_id' => 'required',
         'application_date' => 'required',
-        'quantity' => 'required|string|max:90',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'quantity' => 'required|string|max:90'
     ];
 
     public function stock(): \Illuminate\Database\Eloquent\Relations\BelongsTo

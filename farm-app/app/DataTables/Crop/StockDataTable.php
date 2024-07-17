@@ -18,18 +18,26 @@ class StockDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.stocks.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.stocks.datatables_actions')
+            ->editColumn('quantity', function ($row) {
+                return $row->quantity . ' Kg';
+            })
+            ->editColumn('price', function ($row) {
+                return 'Kshs ' . number_format($row->price, 2);
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Stock $model
+     * @param \App\Models\Crop\Stock $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Stock $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('suppliers', 'stocks.supplier_id', '=', 'suppliers.id')
+            ->select('stocks.*', 'suppliers.name as supplier_name');
     }
 
     /**
@@ -49,11 +57,11 @@ class StockDataTable extends DataTable
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
                     // Enable Buttons as per your need
-//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
     }
@@ -70,7 +78,7 @@ class StockDataTable extends DataTable
             'quantity',
             'stock_type',
             'price',
-            'supplier_id'
+            'supplier_name' => ['title' => 'Supplier Name']
         ];
     }
 
@@ -84,3 +92,4 @@ class StockDataTable extends DataTable
         return 'stocks_datatable_' . time();
     }
 }
+

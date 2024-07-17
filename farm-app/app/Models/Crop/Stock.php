@@ -27,9 +27,7 @@ class Stock extends Model
         'quantity' => 'required|string|max:90',
         'stock_type' => 'required|string|max:100',
         'price' => 'required',
-        'supplier_id' => 'required',
-        'created_at' => 'required',
-        'updated_at' => 'required'
+        'supplier_id' => 'required'
     ];
 
     public function supplier(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -18,18 +18,31 @@ class SaleDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.sales.datatables_actions');
+        return $dataTable->addColumn('action', 'crop.sales.datatables_actions')
+            ->editColumn('quantity', function ($row) {
+                return $row->quantity . ' Kg';
+            })
+            ->editColumn('price_per_unit', function ($row) {
+                return 'Kshs ' . number_format($row->price_per_unit, 2);
+            })
+            ->editColumn('total_price', function ($row) {
+                return 'Kshs ' . number_format($row->total_price, 2);
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Sale $model
+     * @param \App\Models\Crop\Sale $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Sale $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->join('customers', 'sales.customer_id', '=', 'customers.id')
+            ->join('stored_crops', 'sales.stored_crops_id', '=', 'stored_crops.id')
+            ->join('crops', 'stored_crops.crop_id', '=', 'crops.id')
+            ->select('sales.*', 'customers.full_name as customer_name', 'crops.name as crop_name');
     }
 
     /**
@@ -49,11 +62,11 @@ class SaleDataTable extends DataTable
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
                     // Enable Buttons as per your need
-                //    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                //    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-                //    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                //    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                //    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+                    // ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
     }
@@ -66,12 +79,12 @@ class SaleDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'stored_crops_id',
+            'crop_name' => ['title' => 'Crop Name'],
             'sales_date',
             'quantity',
             'price_per_unit',
             'total_price',
-            'customer_id'
+            'customer_name' => ['title' => 'Customer Name']
         ];
     }
 
@@ -85,3 +98,4 @@ class SaleDataTable extends DataTable
         return 'sales_datatable_' . time();
     }
 }
+

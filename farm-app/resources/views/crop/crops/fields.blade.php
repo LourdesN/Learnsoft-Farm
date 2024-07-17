@@ -6,8 +6,8 @@
 
 <!-- Crop Categories Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('crop_categories_id', 'Crop Categories Id:') !!}
-    {!! Form::number('crop_categories_id', null, ['class' => 'form-control', 'required']) !!}
+{!! Form::label('crop_categories_id', 'Crop Categories:') !!}
+    {!! Form::select('crop_categories_id', $cropCategories->pluck('name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Crop Categories"]) !!}
 </div>
 
 <!-- Planting Date Field -->
