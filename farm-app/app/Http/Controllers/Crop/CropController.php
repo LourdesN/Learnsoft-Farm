@@ -7,6 +7,7 @@ use App\Http\Requests\Crop\CreateCropRequest;
 use App\Http\Requests\Crop\UpdateCropRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\CropCategory;
+use App\Models\Crop\Expense_Category;
 use App\Repositories\Crop\CropRepository;
 use Illuminate\Http\Request;
 use Flash;

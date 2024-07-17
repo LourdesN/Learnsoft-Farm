@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .card{
+        background-color:#009150;
+    }
+    h1{
+        font-family: Georgia;
+        text-align: center;
+    }
+</style>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -30,7 +39,7 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Save', ['class' => 'btn btn-dark']) !!}
                 <a href="{{ route('crop.sales.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 

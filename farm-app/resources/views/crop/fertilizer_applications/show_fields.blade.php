@@ -1,6 +1,6 @@
 <!-- Stock Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('stock_id', 'Stock Id:') !!}
+    {!! Form::label('stock_id', 'Stock Name:') !!}
     <p>{{ $fertilizerApplication->stock->name }}</p>
 </div>
 

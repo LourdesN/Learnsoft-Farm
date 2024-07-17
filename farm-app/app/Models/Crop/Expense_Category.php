@@ -19,6 +19,9 @@ class Expense_Category extends Model
     public static array $rules = [
         'name' => 'required|string|max:100'
     ];
-
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'expense_category_id');
+    }
     
 }

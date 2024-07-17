@@ -1,7 +1,7 @@
 <!-- Description Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-6">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::textarea('description', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Amount Field -->
@@ -25,5 +25,5 @@
 <!-- Expense Category Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('expense_category', 'Expense Category:') !!}
-    {!! Form::text('expense_category', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
+    {!! Form::select('expense_category', $expenseCategories->pluck('name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Expense Categories"]) !!}
 </div>

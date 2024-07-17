@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-success elevation-4">
     <a href="{{ route('home') }}" class="brand-link">
         <img src="https://cdn.agdaily.com/wp-content/uploads/2016/09/wheat.jpg"
              alt="Farm Logo"

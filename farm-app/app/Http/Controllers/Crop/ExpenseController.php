@@ -6,6 +6,7 @@ use App\DataTables\Crop\ExpenseDataTable;
 use App\Http\Requests\Crop\CreateExpenseRequest;
 use App\Http\Requests\Crop\UpdateExpenseRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Expense_Category;
 use App\Repositories\Crop\ExpenseRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class ExpenseController extends AppBaseController
      */
     public function create()
     {
-        return view('crop.expenses.create');
+        $expenseCategories = Expense_Category::all();
+        return view('crop.expenses.create', compact('expenseCategories'));
     }
 
     /**
@@ -73,14 +75,14 @@ class ExpenseController extends AppBaseController
     public function edit($id)
     {
         $expense = $this->expenseRepository->find($id);
-
+        $expenseCategories = Expense_Category::all();
         if (empty($expense)) {
             Flash::error('Expense not found');
 
             return redirect(route('crop.expenses.index'));
         }
 
-        return view('crop.expenses.edit')->with('expense', $expense);
+        return view('crop.expenses.edit', compact('expenseCategories'))->with('expense', $expense);
     }
 
     /**

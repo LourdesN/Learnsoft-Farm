@@ -12,24 +12,27 @@ class Expense extends Model
         'description',
         'amount',
         'expense_date',
-        'expense_category'
     ];
 
     protected $casts = [
         'description' => 'string',
-        'expense_date' => 'date',
-        'expense_category' => 'string'
+        'amount' => 'decimal:2',
+        'expense_date' => 'date'
     ];
 
     public static array $rules = [
-        'description' => 'required|string',
-        'amount' => 'required',
-        'expense_date' => 'required',
-        'expense_category' => 'required|string|max:100'
+        'description' => 'required|string|max:255',
+        'amount' => 'required|numeric',
+        'expense_date' => 'required|date',
+        'expense_category_id' => 'required'
     ];
 
     public function getExpenseDateAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Expense_Category::class, 'expense_category_id');
     }
 }
