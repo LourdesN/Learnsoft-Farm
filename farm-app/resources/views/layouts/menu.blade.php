@@ -1,4 +1,10 @@
 <!-- need to remove -->
+ <style>
+    .nav-link {
+        font-size:16px;
+        font-family: Georgia;
+    }
+ </style>
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
