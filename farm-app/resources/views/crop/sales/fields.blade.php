@@ -7,31 +7,26 @@
 <!-- Sales Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('sales_date', 'Sales Date:') !!}
-    {!! Form::Date('sales_date', null, ['class' => 'form-control','id'=>'sales_date']) !!}
+    {!! Form::date('sales_date', null, ['class' => 'form-control', 'id' => 'sales_date', 'max' => now()->format('Y-m-d')]) !!}
 </div>
 
-@push('page_scripts')
-    <script type="text/javascript">
-        $('#sales_date').datepicker()
-    </script>
-@endpush
 
 <!-- Quantity Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('quantity', 'Quantity:') !!}
-    {!! Form::text('quantity', null, ['class' => 'form-control', 'required', 'maxlength' => 90, 'maxlength' => 90]) !!}
+    {!! Form::text('quantity', null, ['class' => 'form-control', 'required', 'maxlength' => 90, 'maxlength' => 90, 'id' => 'quantity']) !!}
 </div>
 
 <!-- Price Per Unit Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('price_per_unit', 'Price Per Unit:') !!}
-    {!! Form::number('price_per_unit', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::number('price_per_unit', null, ['class' => 'form-control', 'required', 'id' => 'price_per_unit']) !!}
 </div>
 
 <!-- Total Price Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('total_price', 'Total Price:') !!}
-    {!! Form::number('total_price', null, ['class' => 'form-control']) !!}
+    {!! Form::number('total_price', null, ['class' => 'form-control', 'id' => 'total_price', 'readonly']) !!}
 </div>
 
 <!-- Customer Field -->

@@ -6,9 +6,11 @@ use App\DataTables\Crop\CropDataTable;
 use App\Http\Requests\Crop\CreateCropRequest;
 use App\Http\Requests\Crop\UpdateCropRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\Crop;
 use App\Models\Crop\CropCategory;
 use App\Models\Crop\Expense_Category;
 use App\Repositories\Crop\CropRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 
@@ -44,16 +46,37 @@ class CropController extends AppBaseController
     /**
      * Store a newly created Crop in storage.
      */
-    public function store(CreateCropRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-
-        $crop = $this->cropRepository->create($input);
-
-        Flash::success('Crop saved successfully.');
-
-        return redirect(route('crop.crops.index'));
+        // Validate input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:100',
+            'crop_categories_id' => 'required|integer',
+            'planting_date' => 'required|date_format:d/m/Y',
+            'duration' => 'required|integer',
+            'is_harvested' => 'sometimes|boolean'
+        ]);
+    
+        // Parse planting date
+        $plantingDate = Carbon::createFromFormat('d/m/Y', $request->input('planting_date'));
+    
+        // Calculate harvesting date
+        $harvestingDate = $plantingDate->copy()->addDays($request->input('duration'));
+    
+        // Format harvesting date
+        $formattedHarvestingDate = $harvestingDate->format('d/m/Y');
+    
+        // Save Crop
+        Crop::create([
+            'name' => $request->input('name'),
+            'crop_categories_id' => $request->input('crop_categories_id'),
+            'planting_date' => $plantingDate->format('Y-m-d'), // Store in standard format
+            'harvesting_date' => $harvestingDate->format('Y-m-d') // Store in standard format
+        ]);
+    
+        return redirect()->route('crop.crops.index')->with('success', 'Crop created successfully!');
     }
+    
 
     /**
      * Display the specified Crop.

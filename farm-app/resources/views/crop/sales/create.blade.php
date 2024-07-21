@@ -47,4 +47,24 @@
 
         </div>
     </div>
+    @push('page_scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Function to calculate total price
+            function calculateTotalPrice() {
+                var quantity = parseFloat($('#quantity').val()) || 0;
+                var pricePerUnit = parseFloat($('#price_per_unit').val()) || 0;
+                var totalPrice = quantity * pricePerUnit;
+
+                $('#total_price').val(totalPrice.toFixed(2));
+            }
+
+            // Attach event handlers to input fields
+            $('#quantity, #price_per_unit').on('input', function() {
+                calculateTotalPrice();
+            });
+        });
+    </script>
+@endpush
+
 @endsection

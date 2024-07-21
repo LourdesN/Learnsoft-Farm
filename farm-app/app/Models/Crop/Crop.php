@@ -12,20 +12,23 @@ class Crop extends Model
         'name',
         'crop_categories_id',
         'planting_date',
-        'harvesting_date'
+        'harvesting_date',
+        'is_harvested'
     ];
 
     protected $casts = [
         'name' => 'string',
         'planting_date' => 'date',
-        'harvesting_date' => 'date'
+        'harvesting_date' => 'date',
+        'is_harvested' => 'boolean'
     ];
 
     public static array $rules = [
         'name' => 'required|string|max:100',
         'crop_categories_id' => 'required',
         'planting_date' => 'required',
-        'harvesting_date' => 'required'
+        'harvesting_date' => 'required',
+        'is_harvested' => 'boolean'
     ];
 
     public function cropCategories(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -51,7 +54,7 @@ class Crop extends Model
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
     }
-    public function getHarvestDateAttribute($value)
+    public function getHarvestingDateAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
     }

@@ -74,7 +74,8 @@ class CropDataTable extends DataTable
             'name',
             'crop_category_name' => ['name' => 'Crop Category'],
             'planting_date',
-            'harvesting_date'
+            'harvesting_date',
+            'is_harvested'
         ];
     }
 
