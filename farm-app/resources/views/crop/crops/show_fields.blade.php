@@ -21,9 +21,4 @@
     {!! Form::label('harvesting_date', 'Expected Harvesting Date:') !!}
     <p>{{ $crop->harvesting_date }}</p>
 </div>
-<!-- is harvested -->
-<div class="col-sm-12">
-    {!! Form::label('is_harvested', 'Harvested:') !!}
-    <p>{{ $crop->is_harvested }}</p>
-</div>
 

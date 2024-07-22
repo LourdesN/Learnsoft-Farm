@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\Crop;
 use App\Models\Crop\CropCategory;
 use App\Models\Crop\Expense_Category;
+use App\Models\Crop\Harvest;
 use App\Repositories\Crop\CropRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -150,5 +151,21 @@ class CropController extends AppBaseController
         Flash::success('Crop deleted successfully.');
 
         return redirect(route('crop.crops.index'));
+    }
+    public function markAsHarvested($id)
+    {
+        $crop = Crop::findOrFail($id);
+        $crop->is_harvested = true;
+        $crop->save();
+
+        // Create a new entry in the harvests table
+        Harvest::create([
+            'crop_id' => $crop->id,
+            'harvest_date' => now(),
+            'quantity' => 0,
+            'quality' => 'Good'
+        ]);
+
+        return redirect()->route('crop.crops.index')->with('success', 'Crop marked as harvested and added to harvests.');
     }
 }

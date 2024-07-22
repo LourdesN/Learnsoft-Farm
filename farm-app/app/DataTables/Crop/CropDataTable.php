@@ -17,12 +17,27 @@ class CropDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('action', 'crop.crops.datatables_actions')
-                         ->addColumn('crop_category_name', function($row) {
-                             return $row->crop_category_name;
-                         });
+    
+        return $dataTable->addColumn('Harvest action', function($row) {
+            if (!$row->is_harvested) {
+                return '
+                    <form action="' . route('crops.markAsHarvested', $row->id) . '" method="POST" class="mark-as-harvested-form">
+                        ' . csrf_field() . '
+                        ' . method_field('PATCH') . '
+                        <button type="submit" class="btn btn-success btn-sm">Mark as Harvested</button>
+                    </form>
+                ';
+            }
+            return '';
+        })
+        ->addColumn('crop_category_name', function($row) {
+            return $row->crop_category_name;
+        })
+        ->addColumn('action', 'crop.crops.datatables_actions')
+        ->rawColumns(['Harvest action', 'action']); // Ensure these columns are treated as raw HTML
     }
+    
+    
 
     /**
      * Get query source of dataTable.
@@ -75,7 +90,8 @@ class CropDataTable extends DataTable
             'crop_category_name' => ['name' => 'Crop Category'],
             'planting_date',
             'harvesting_date',
-            'is_harvested'
+            'is_harvested',
+           'Harvest action'
         ];
     }
 
@@ -89,4 +105,5 @@ class CropDataTable extends DataTable
         return 'crops_datatable_' . time();
     }
 }
+
 

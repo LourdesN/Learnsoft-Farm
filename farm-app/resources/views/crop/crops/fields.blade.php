@@ -28,11 +28,6 @@
     {!! Form::text('harvesting_date', null, ['class' => 'form-control', 'id' => 'harvesting_date', 'required', 'readonly', 'placeholder' => 'dd/mm/yyyy']) !!}
 </div>
 
-<!-- Is Harvested Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_harvested', 'Is Harvested:') !!}
-    {!! Form::checkbox('is_harvested', 1, null, ['class' => 'form-control']) !!}
-</div>
 
 
 

@@ -159,6 +159,7 @@ Route::resource('crop/harvests', App\Http\Controllers\Crop\HarvestController::cl
         'create' => 'crop.harvests.create',
         'edit' => 'crop.harvests.edit'
     ]);
+Route::patch('crops/{id}/harvest', [App\Http\Controllers\Crop\CropController::class, 'markAsHarvested'])->name('crops.markAsHarvested');
 Route::resource('crop/crops', App\Http\Controllers\Crop\CropController::class)
     ->names([
         'index' => 'crop.crops.index',
