@@ -1,7 +1,7 @@
-<!-- Stored Crops Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('stored_crops_id', 'Stored Crops Id:') !!}
-    {!! Form::number('stored_crops_id', null, ['class' => 'form-control']) !!}
+  <!-- harvested Crops Field -->
+  <div class="form-group col-sm-6">
+        {!! Form::label('harvest_id', 'Harvested Crop:') !!}
+        {!! Form::select('harvest_id', $harvestedCrops->pluck('crop.name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder' => 'Select Harvested Crop']) !!}
 </div>
 
 <!-- Sales Date Field -->
@@ -32,5 +32,5 @@
 <!-- Customer Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('customer_id', 'Customer:') !!}
-    {!! Form::select('customer_id', $customers->pluck('full_name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Customers"]) !!}
+    {!! Form::select('customer_id', $customers->pluck('full_name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder'=>"Select Customers"]) !!}
 </div>

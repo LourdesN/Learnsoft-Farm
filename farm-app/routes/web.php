@@ -149,6 +149,11 @@ Route::resource('crop/pesticide-applications', App\Http\Controllers\Crop\Pestici
         'create' => 'crop.pesticideApplications.create',
         'edit' => 'crop.pesticideApplications.edit'
     ]);
+    // routes/web.php
+
+Route::get('harvests/create-from-crop/{crop}', [App\Http\Controllers\Crop\HarvestController::class, 'createFromCrop'])->name('harvests.createFromCrop');
+Route::post('harvests/store-from-crop', [App\Http\Controllers\Crop\HarvestController::class, 'storeFromCrop'])->name('harvests.storeFromCrop');
+
 Route::resource('crop/harvests', App\Http\Controllers\Crop\HarvestController::class)
     ->names([
         'index' => 'crop.harvests.index',

@@ -7,6 +7,7 @@ use App\Http\Requests\Crop\CreateHarvestRequest;
 use App\Http\Requests\Crop\UpdateHarvestRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\Crop;
+use App\Models\Crop\Harvest;
 use App\Repositories\Crop\HarvestRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -127,4 +128,29 @@ class HarvestController extends AppBaseController
 
         return redirect(route('crop.harvests.index'));
     }
+    public function createFromCrop($cropId)
+{
+    $crop = Crop::findOrFail($cropId);
+
+    return view('crop.harvests.create_from_crop', compact('crop'));
+}
+public function storeFromCrop(Request $request)
+{
+    $request->validate([
+        'crop_id' => 'required|exists:crops,id',
+        'harvest_date' => 'required|date',
+        'quantity' => 'required|numeric',
+        'quality' => 'required|string|max:255',
+    ]);
+
+    Harvest::create([
+        'crop_id' => $request->crop_id,
+        'harvest_date' => $request->harvest_date,
+        'quantity' => $request->quantity,
+        'quality' => $request->quality
+    ]);
+
+    return redirect()->route('crop.crops.index')->with('success', 'Harvest information has been added.');
+}
+
 }

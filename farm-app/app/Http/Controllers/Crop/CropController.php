@@ -157,15 +157,8 @@ class CropController extends AppBaseController
         $crop = Crop::findOrFail($id);
         $crop->is_harvested = true;
         $crop->save();
-
-        // Create a new entry in the harvests table
-        Harvest::create([
-            'crop_id' => $crop->id,
-            'harvest_date' => now(),
-            'quantity' => 0,
-            'quality' => 'Good'
-        ]);
-
-        return redirect()->route('crop.crops.index')->with('success', 'Crop marked as harvested and added to harvests.');
+    
+        return redirect()->route('harvests.createFromCrop', ['crop' => $crop->id]);
     }
+    
 }

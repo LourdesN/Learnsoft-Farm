@@ -7,6 +7,7 @@ use App\Http\Requests\Crop\CreateSaleRequest;
 use App\Http\Requests\Crop\UpdateSaleRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\Customer;
+use App\Models\Crop\Harvest;
 use App\Repositories\Crop\SaleRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -37,7 +38,8 @@ class SaleController extends AppBaseController
     {
          // hii ndio inaenable the drop down
         $customers = Customer::all();
-        return view('crop.sales.create', compact('customers'));
+        $harvestedCrops = Harvest::with('crop')->get();
+        return view('crop.sales.create', compact('customers','harvestedCrops'));
     }
 
     /**
