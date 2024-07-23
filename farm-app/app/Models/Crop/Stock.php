@@ -13,7 +13,8 @@ class Stock extends Model
         'quantity',
         'stock_type',
         'price',
-        'supplier_id'
+        'supplier_id',
+        'remaining_stock'
     ];
 
     protected $casts = [

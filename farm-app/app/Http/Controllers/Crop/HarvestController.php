@@ -8,6 +8,7 @@ use App\Http\Requests\Crop\UpdateHarvestRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\Crop;
 use App\Models\Crop\Harvest;
+use App\Models\Crop\Staging;
 use App\Repositories\Crop\HarvestRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -150,7 +151,12 @@ public function storeFromCrop(Request $request)
         'quality' => $request->quality
     ]);
 
-    return redirect()->route('crop.crops.index')->with('success', 'Harvest information has been added.');
+    Staging::create([
+        'crop_id' => $request->crop_id,
+        'quantity' => $request->quantity
+    ]);
+
+    return redirect()->route('crop.harvests.index')->with('success', 'Harvest information has been added.');
 }
 
 }

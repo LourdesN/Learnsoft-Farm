@@ -2,11 +2,11 @@
 
 namespace App\DataTables\Crop;
 
-use App\Models\Crop\Stock;
+use App\Models\Crop\Staging;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class StockDataTable extends DataTable
+class StagingDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,29 +18,26 @@ class StockDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'crop.stocks.datatables_actions')
+        return $dataTable->addColumn('action', 'crop.stagings.datatables_actions')
             ->editColumn('quantity', function ($row) {
                 return $row->quantity . ' Kg';
             })
-            ->editColumn('remaining_stock', function ($row) {
-                return $row->remaining_stock . ' Kg';
-            })
-            ->editColumn('price', function ($row) {
-                return 'Kshs ' . number_format($row->price, 2);
+            ->editColumn('crop_name', function ($row) {
+                return $row->crop->name;
             });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Crop\Stock $model
+     * @param \App\Models\Staging $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Stock $model)
+    public function query(Staging $model)
     {
         return $model->newQuery()
-            ->join('suppliers', 'stocks.supplier_id', '=', 'suppliers.id')
-            ->select('stocks.*', 'suppliers.name as supplier_name');
+            ->join('crops', 'staging.crop_id', '=', 'crops.id')
+            ->select('staging.*', 'crops.name as crop_name');
     }
 
     /**
@@ -60,11 +57,11 @@ class StockDataTable extends DataTable
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
                     // Enable Buttons as per your need
-                    // ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                    // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-                    // ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                    // ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    // ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
     }
@@ -77,12 +74,8 @@ class StockDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
+            'crop_name' => ['title' => 'Crop Name', 'data' => 'crop_name'],
             'quantity',
-            'stock_type',
-            'price',
-            'supplier_name' => ['title' => 'Supplier Name'],
-            'remaining_stock'
         ];
     }
 
@@ -93,7 +86,7 @@ class StockDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'stocks_datatable_' . time();
+        return 'stagings_datatable_' . time();
     }
 }
 

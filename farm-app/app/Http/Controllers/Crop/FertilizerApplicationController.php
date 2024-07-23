@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Crop;
 
 use App\DataTables\Crop\FertilizerApplicationDataTable;
+use App\Http\Controllers\Traits\CalculatesRemainingStock;
 use App\Http\Requests\Crop\CreateFertilizerApplicationRequest;
 use App\Http\Requests\Crop\UpdateFertilizerApplicationRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Crop\FertilizerApplication;
+use App\Models\Crop\PesticideApplication;
 use App\Models\Crop\Stock;
 use App\Repositories\Crop\FertilizerApplicationRepository;
 use Illuminate\Http\Request;
@@ -42,17 +45,18 @@ class FertilizerApplicationController extends AppBaseController
     /**
      * Store a newly created FertilizerApplication in storage.
      */
-    public function store(CreateFertilizerApplicationRequest $request)
+    use CalculatesRemainingStock;
+
+    public function store(Request $request)
     {
-        $input = $request->all();
+        // Validate and create the fertilizer application
+        $application = FertilizerApplication::create($request->all());
 
-        $fertilizerApplication = $this->fertilizerApplicationRepository->create($input);
+        // Calculate remaining stock for the related stock
+        $this->calculateRemainingStock($application->stock_id);
 
-        Flash::success('Fertilizer Application saved successfully.');
-
-        return redirect(route('crop.fertilizerApplications.index'));
+        return redirect()->route('crop.fertilizerApplications.index')->with('success', 'Fertilizer application recorded and stock updated.');
     }
-
     /**
      * Display the specified FertilizerApplication.
      */

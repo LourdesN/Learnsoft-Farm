@@ -149,7 +149,6 @@ Route::resource('crop/pesticide-applications', App\Http\Controllers\Crop\Pestici
         'create' => 'crop.pesticideApplications.create',
         'edit' => 'crop.pesticideApplications.edit'
     ]);
-    // routes/web.php
 
 Route::get('harvests/create-from-crop/{crop}', [App\Http\Controllers\Crop\HarvestController::class, 'createFromCrop'])->name('harvests.createFromCrop');
 Route::post('harvests/store-from-crop', [App\Http\Controllers\Crop\HarvestController::class, 'storeFromCrop'])->name('harvests.storeFromCrop');
@@ -194,4 +193,14 @@ Route::resource('crop/expenses', App\Http\Controllers\Crop\ExpenseController::cl
         'destroy' => 'crop.expenses.destroy',
         'create' => 'crop.expenses.create',
         'edit' => 'crop.expenses.edit'
+    ]);
+Route::resource('crop/stagings', App\Http\Controllers\Crop\StagingController::class)
+    ->names([
+        'index' => 'crop.stagings.index',
+        'store' => 'crop.stagings.store',
+        'show' => 'crop.stagings.show',
+        'update' => 'crop.stagings.update',
+        'destroy' => 'crop.stagings.destroy',
+        'create' => 'crop.stagings.create',
+        'edit' => 'crop.stagings.edit'
     ]);

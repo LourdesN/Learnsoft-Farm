@@ -6,6 +6,9 @@ use App\DataTables\Crop\PesticideApplicationDataTable;
 use App\Http\Requests\Crop\CreatePesticideApplicationRequest;
 use App\Http\Requests\Crop\UpdatePesticideApplicationRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Controllers\Traits\CalculatesRemainingStock;
+use App\Models\Crop\FertilizerApplication;
+use App\Models\Crop\PesticideApplication;
 use App\Models\Crop\Stock;
 use App\Repositories\Crop\PesticideApplicationRepository;
 use Illuminate\Http\Request;
@@ -42,17 +45,18 @@ class PesticideApplicationController extends AppBaseController
     /**
      * Store a newly created PesticideApplication in storage.
      */
-    public function store(CreatePesticideApplicationRequest $request)
+    use CalculatesRemainingStock;
+
+    public function store(Request $request)
     {
-        $input = $request->all();
+        // Validate and create the pesticide application
+        $application = PesticideApplication::create($request->all());
 
-        $pesticideApplication = $this->pesticideApplicationRepository->create($input);
+        // Calculate remaining stock for the related stock
+        $this->calculateRemainingStock($application->stock_id);
 
-        Flash::success('Pesticide Application saved successfully.');
-
-        return redirect(route('crop.pesticideApplications.index'));
+        return redirect()->route('crop.pesticideApplications.index')->with('success', 'Pesticide application recorded and stock updated.');
     }
-
     /**
      * Display the specified PesticideApplication.
      */

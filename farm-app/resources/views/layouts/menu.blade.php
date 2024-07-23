@@ -97,6 +97,13 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ route('crop.stagings.index') }}" class="nav-link {{ Request::is('crop/stagings*') ? 'active' : '' }}">
+    <i class="fas fa-project-diagram"></i>
+        <p>Stagings</p>
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{ route('crop.fertilizerApplications.index') }}" class="nav-link {{ Request::is('crop/fertilizer-applications*') ? 'active' : '' }}">
     <i class="fas fa-warehouse"></i>
         <p>Fertilizer Applications</p>
@@ -109,5 +116,6 @@
         <p>Pesticide Applications</p>
     </a>
 </li>
+
 
 
