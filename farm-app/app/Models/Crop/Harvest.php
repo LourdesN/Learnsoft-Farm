@@ -12,7 +12,8 @@ class Harvest extends Model
         'crop_id',
         'harvest_date',
         'quantity',
-        'quality'
+        'quality',
+        'remaining_quantity'
     ];
 
     protected $casts = [
@@ -40,5 +41,27 @@ class Harvest extends Model
     public function getHarvestDateAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
+
+    // Method to calculate remaining quantity
+    public function calculateRemainingQuantity()
+    {
+        // Get the total quantity sold for this harvest
+        $totalSold = Sale::where('harvest_id', $this->id)->sum('quantity');
+
+        // Calculate the remaining quantity
+        $this->remaining_quantity = $this->quantity - $totalSold;
+
+        // Ensure remaining quantity is not negative
+        if ($this->remaining_quantity < 0) {
+            $this->remaining_quantity = 0;
+        }
+
+        // Save the updated harvest
+        $this->save();
     }
 }

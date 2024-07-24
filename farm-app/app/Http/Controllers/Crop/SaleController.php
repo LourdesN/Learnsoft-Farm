@@ -8,6 +8,7 @@ use App\Http\Requests\Crop\UpdateSaleRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Crop\Customer;
 use App\Models\Crop\Harvest;
+use App\Models\Crop\Sale;
 use App\Repositories\Crop\SaleRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -45,15 +46,25 @@ class SaleController extends AppBaseController
     /**
      * Store a newly created Sale in storage.
      */
-    public function store(CreateSaleRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        // Validate and create the sale
+        $validatedData = $request->validate(Sale::$rules);
+        $sale = Sale::create($validatedData);
 
-        $sale = $this->saleRepository->create($input);
+        // Calculate remaining quantity for the related harvest
+        $this->calculateRemainingQuantity($sale->harvest_id);
 
-        Flash::success('Sale saved successfully.');
+        return redirect()->route('crop.sales.index')->with('success', 'Sale recorded and remaining quantity updated.');
+    }
 
-        return redirect(route('crop.sales.index'));
+    protected function calculateRemainingQuantity($harvestId)
+    {
+        // Find the harvest
+        $harvest = Harvest::findOrFail($harvestId);
+
+        // Calculate remaining quantity
+        $harvest->calculateRemainingQuantity();
     }
 
     /**
@@ -62,6 +73,8 @@ class SaleController extends AppBaseController
     public function show($id)
     {
         $sale = $this->saleRepository->find($id);
+        $harvestedCrops = Harvest::with('crop')->get();
+        $customers = Customer::all();
 
         if (empty($sale)) {
             Flash::error('Sale not found');
@@ -69,7 +82,7 @@ class SaleController extends AppBaseController
             return redirect(route('crop.sales.index'));
         }
 
-        return view('crop.sales.show')->with('sale', $sale);
+        return view('crop.sales.show', compact('customers', 'harvestedCrops'))->with('sale', $sale);
     }
 
     /**
@@ -79,13 +92,14 @@ class SaleController extends AppBaseController
     {
         $sale = $this->saleRepository->find($id);
         $customers = Customer::all();
+        $harvestedCrops = Harvest::with('crop')->get();
         if (empty($sale)) {
             Flash::error('Sale not found');
 
             return redirect(route('crop.sales.index'));
         }
 
-        return view('crop.sales.edit', compact('customers'))->with('sale', $sale);
+        return view('crop.sales.edit', compact('customers', 'harvestedCrops'))->with('sale', $sale);
     }
 
     /**

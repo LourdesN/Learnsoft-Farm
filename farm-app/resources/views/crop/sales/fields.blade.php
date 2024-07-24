@@ -1,8 +1,11 @@
-  <!-- harvested Crops Field -->
-  <div class="form-group col-sm-6">
-        {!! Form::label('harvest_id', 'Harvested Crop:') !!}
-        {!! Form::select('harvest_id', $harvestedCrops->pluck('crop.name', 'id'), null, ['class' => 'form-control', 'required', 'placeholder' => 'Select Harvested Crop']) !!}
+<!-- Harvested Crops Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('harvest_id', 'Harvested Crop:') !!}
+    {!! Form::select('harvest_id', $harvestedCrops->mapWithKeys(function($harvest) {
+        return [$harvest->id => $harvest->crop->name . ' (Qty: ' . $harvest->quantity . ')'];
+    }), null, ['class' => 'form-control', 'required', 'placeholder' => 'Select Harvested Crop']) !!}
 </div>
+
 
 <!-- Sales Date Field -->
 <div class="form-group col-sm-6">

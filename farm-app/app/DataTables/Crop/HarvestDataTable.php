@@ -19,6 +19,9 @@ class HarvestDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'crop.harvests.datatables_actions')
+        ->editColumn('remaining_quantity', function ($row) {
+            return $row->remaining_quantity . ' Kg';
+        })
             ->editColumn('quantity', function ($row) {
                 return $row->quantity . ' Kg';
             });
@@ -74,6 +77,7 @@ class HarvestDataTable extends DataTable
             'crop_name' => ['title' => 'Crop Name'],
             'harvest_date',
             'quantity',
+            'remaining_quantity',
             'quality'
         ];
     }

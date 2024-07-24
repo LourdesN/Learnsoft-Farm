@@ -1,7 +1,7 @@
 <!-- Stored Crops Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('stored_crops_id', 'Stored Crops Id:') !!}
-    <p>{{ $sale->stored_crops_id }}</p>
+    {!! Form::label('Harvested Crop', 'Harvested Crops:') !!}
+    <p>{{ $sale->harvest->crop->name}}</p>
 </div>
 
 <!-- Sales Date Field -->

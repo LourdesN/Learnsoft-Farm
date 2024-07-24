@@ -40,8 +40,8 @@ class SaleDataTable extends DataTable
     {
         return $model->newQuery()
             ->join('customers', 'sales.customer_id', '=', 'customers.id')
-            ->join('stored_crops', 'sales.stored_crops_id', '=', 'stored_crops.id')
-            ->join('crops', 'stored_crops.crop_id', '=', 'crops.id')
+            ->join('harvests', 'sales.harvest_id', '=', 'harvests.id')
+            ->join('crops', 'harvests.crop_id', '=', 'crops.id')
             ->select('sales.*', 'customers.full_name as customer_name', 'crops.name as crop_name');
     }
 
@@ -80,10 +80,10 @@ class SaleDataTable extends DataTable
     {
         return [
             'crop_name' => ['title' => 'Crop Name'],
-            'sales_date',
-            'quantity',
-            'price_per_unit',
-            'total_price',
+            'sales_date' => ['title' => 'Sales Date'],
+            'quantity' => ['title' => 'Quantity'],
+            'price_per_unit' => ['title' => 'Price Per Unit'],
+            'total_price' => ['title' => 'Total Price'],
             'customer_name' => ['title' => 'Customer Name']
         ];
     }
@@ -98,4 +98,5 @@ class SaleDataTable extends DataTable
         return 'sales_datatable_' . time();
     }
 }
+
 

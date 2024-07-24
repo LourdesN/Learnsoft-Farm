@@ -9,7 +9,7 @@ class Sale extends Model
     public $table = 'sales';
 
     public $fillable = [
-        'stored_crops_id',
+        'harvest_id',
         'sales_date',
         'quantity',
         'price_per_unit',
@@ -23,7 +23,7 @@ class Sale extends Model
     ];
 
     public static array $rules = [
-        'stored_crops_id' => 'nullable',
+        'harvest_id' => 'nullable',
         'sales_date' => 'required',
         'quantity' => 'required|string|max:90',
         'price_per_unit' => 'required',
@@ -48,5 +48,10 @@ class Sale extends Model
     public function getSalesDateAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function harvest(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Crop\Harvest::class, 'harvest_id');
     }
 }
